@@ -1,0 +1,22 @@
+{
+    "compilerOptions":{
+        "strict":true,
+        "jsx":"react",
+        "lib":["dom","ESNext"],
+        "target":"ESNext",
+        "esModuleInterop":true,
+        "baseUrl":".",
+        "moduleResolution":"node",
+        "paths":{
+            "components/*":["web/components/*"]
+        }
+    },
+    "include":[
+        "**/*.d.ts",
+        "**/*.ts",
+        "**/*.tsx"
+    ],
+    "exclude":[
+        "node_modules"
+    ]
+}
