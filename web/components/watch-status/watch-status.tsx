@@ -1,18 +1,23 @@
 import React from "react";
 
+import {toFormattedTime} from "lib/timeformat";
+
 import "./watch-status.less";
 
 interface WatchStatusProps
 {
-
+  watchStatus:CurrentWatch
 }
 
 export default function WatchStatus(props:WatchStatusProps):JSX.Element
 {
+  const currentTime:FormattedTime=toFormattedTime(props.watchStatus.currentTime);
+  const totalTime:FormattedTime=toFormattedTime(props.watchStatus.totalTime);
+
   return <div className="watch-status">
-    <p className="title">星の乙女と六華の姉妹</p>
-    <p>Current Session: <span className="highlighted">0</span> minutes</p>
-    <p>Total Time: <span className="highlighted">3.3</span> hours</p>
+    <p className="title">{props.watchStatus.name}</p>
+    <p>Current Session: <span className="highlighted">{currentTime.value}</span> {currentTime.units}</p>
+    <p>Total Time: <span className="highlighted">{totalTime.value}</span> {totalTime.units}</p>
     <p>Categories:</p>
 
     <div className="categories">

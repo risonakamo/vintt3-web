@@ -64,7 +64,8 @@ module.exports={
             css:`${__dirname}/web/css`,
             components:`${__dirname}/web/components`,
             apis:`${__dirname}/web/apis`,
-            hooks:`${__dirname}/web/hooks`
+            hooks:`${__dirname}/web/hooks`,
+            lib:`${__dirname}/web/lib`
         }
     },
 
