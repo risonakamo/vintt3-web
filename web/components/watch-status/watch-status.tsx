@@ -16,12 +16,22 @@ export default function WatchStatus(props:WatchStatusProps):JSX.Element
     <p>Categories:</p>
 
     <div className="categories">
-      <p className="category unselected">None</p>
-      <p className="category unselected">Category1: <span className="highlighted">12</span> minutes</p>
-      <p className="category unselected">Category2</p>
-      <p className="category selected">
-        <span className="highlighted">&gt;</span> Category3: <span className="highlighted">45</span> minutes
+      <p className="category unselected">
+        <span className="selection-arrow">&gt;</span> None
       </p>
+
+      <p className="category unselected">
+        <span className="selection-arrow">&gt;</span> Category1: <span className="highlighted">12</span> minutes
+      </p>
+
+      <p className="category unselected">
+        <span className="selection-arrow">&gt;</span> Category2
+      </p>
+
+      <p className="category selected">
+        <span className="highlighted">&gt;</span> Category3: <span className="selection-arrow">45</span> minutes
+      </p>
+
       <p className="add-category">+ Add Category</p>
     </div>
   </div>;

@@ -20,17 +20,28 @@
 
     .categories
     {
+        cursor: default;
+
         .category
         {
             &.unselected
             {
-                padding-left: 16px;
                 opacity: @fade-text;
 
                 &:hover
                 {
                     opacity: @active-fade-text;
                     cursor: pointer;
+
+                    .selection-arrow
+                    {
+                        opacity: @active-fade-text;
+                    }
+                }
+
+                .selection-arrow
+                {
+                    opacity: 0;
                 }
             }
 
@@ -38,11 +49,23 @@
             {
                 font-style: italic;
             }
+
+            .selection-arrow
+            {
+                color: @text-highlight;
+            }
         }
 
         .add-category
         {
             color: @text-fade-highlight;
+            opacity: @highlight-fade;
+            cursor: pointer;
+
+            &:hover
+            {
+                opacity: @active-highlight-fade;
+            }
         }
     }
 }
