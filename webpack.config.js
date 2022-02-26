@@ -60,9 +60,9 @@ module.exports={
 
     resolve:{
         extensions:[".tsx",".ts",".jsx",".js"],
-        // alias:{
-        //     top:`${__dirname}`
-        // }
+        alias:{
+            css:`${__dirname}/web/css`
+        }
     },
 
     stats:{

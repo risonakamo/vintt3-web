@@ -1,1 +1,76 @@
 @charset "UTF-8";
+@import (reference) "~css/theme";
+
+html
+{
+    height: 100%;
+    width: 100%;
+}
+
+body
+{
+    height: 100%;
+    width: 100%;
+    background-color: @main-dark-background;
+    font-family: "consolas","arial";
+    color: @text-main;
+    margin: 0;
+}
+
+p
+{
+    margin: 0;
+    font-size: @main-text-size;
+}
+
+.main
+{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .watching
+    {
+        color: @text-darker-highlight;
+    }
+
+    .watch-status
+    {
+        p
+        {
+            margin-bottom: 6px;
+        }
+
+        .title
+        {
+            color: @text-highlight;
+            margin-bottom: 12px;
+        }
+
+        .highlighted
+        {
+            color: @text-highlight;
+        }
+
+        .category
+        {
+            &.unselected
+            {
+                padding-left: 16px;
+                opacity: @fade-text;
+            }
+
+            &.selected
+            {
+                font-style: italic;
+            }
+        }
+
+        .add-category
+        {
+            color: @text-fade-highlight;
+        }
+    }
+}
