@@ -18,28 +18,31 @@
         color: @text-highlight;
     }
 
-    .category
+    .categories
     {
-        &.unselected
+        .category
         {
-            padding-left: 16px;
-            opacity: @fade-text;
-
-            &:hover
+            &.unselected
             {
-                opacity: @active-fade-text;
-                cursor: pointer;
+                padding-left: 16px;
+                opacity: @fade-text;
+
+                &:hover
+                {
+                    opacity: @active-fade-text;
+                    cursor: pointer;
+                }
+            }
+
+            &.selected
+            {
+                font-style: italic;
             }
         }
 
-        &.selected
+        .add-category
         {
-            font-style: italic;
+            color: @text-fade-highlight;
         }
-    }
-
-    .add-category
-    {
-        color: @text-fade-highlight;
     }
 }
