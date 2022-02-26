@@ -1,0 +1,39 @@
+@import (reference) "~css/theme";
+
+.watch-status
+{
+    p
+    {
+        margin-bottom: 6px;
+    }
+
+    .title
+    {
+        color: @text-highlight;
+        margin-bottom: 12px;
+    }
+
+    .highlighted
+    {
+        color: @text-highlight;
+    }
+
+    .category
+    {
+        &.unselected
+        {
+            padding-left: 16px;
+            opacity: @fade-text;
+        }
+
+        &.selected
+        {
+            font-style: italic;
+        }
+    }
+
+    .add-category
+    {
+        color: @text-fade-highlight;
+    }
+}
