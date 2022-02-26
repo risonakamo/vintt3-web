@@ -8,7 +8,9 @@
         "baseUrl":".",
         "moduleResolution":"node",
         "paths":{
-            "components/*":["web/components/*"]
+            "components/*":["web/components/*"],
+            "apis/*":["web/apis/*"],
+            "hooks/*":["web/hooks/*"]
         }
     },
     "include":[
