@@ -12,8 +12,6 @@ function IndexMain():JSX.Element
 {
   const currentWatch:CurrentWatch|null=useCurrentWatch();
 
-  console.log("watch",currentWatch);
-
   /** possibly render watch status if it is available */
   function renderWatchStatus()
   {
