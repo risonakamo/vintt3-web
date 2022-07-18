@@ -10,5 +10,5 @@ interface CurrentWatch
 
     totalTime: number
 
-    categories: CategoriesTimes
+    categoryTime: CategoriesTimes
 }

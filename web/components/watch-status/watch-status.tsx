@@ -1,6 +1,9 @@
 import React from "react";
+import _ from "lodash";
 
 import {toFormattedTime} from "lib/timeformat";
+
+import CategoryStatus from "components/category-status/category-status";
 
 import "./watch-status.less";
 
@@ -11,6 +14,13 @@ interface WatchStatusProps
 
 export default function WatchStatus(props:WatchStatusProps):JSX.Element
 {
+  function renderCategories():JSX.Element[]
+  {
+    return _.map(props.watchStatus.categoryTime,(time:number,category:string):JSX.Element=>{
+      return <CategoryStatus category={category} time={time}/>;
+    });
+  }
+
   const currentTime:FormattedTime=toFormattedTime(props.watchStatus.currentTime);
   const totalTime:FormattedTime=toFormattedTime(props.watchStatus.totalTime);
 
@@ -21,21 +31,7 @@ export default function WatchStatus(props:WatchStatusProps):JSX.Element
     <p>Categories:</p>
 
     <div className="categories">
-      <p className="category unselected">
-        <span className="selection-arrow">&gt;</span> None
-      </p>
-
-      <p className="category unselected">
-        <span className="selection-arrow">&gt;</span> Category1: <span className="highlighted">12</span> minutes
-      </p>
-
-      <p className="category unselected">
-        <span className="selection-arrow">&gt;</span> Category2
-      </p>
-
-      <p className="category selected">
-        <span className="highlighted">&gt;</span> Category3: <span className="selection-arrow">45</span> minutes
-      </p>
+      {renderCategories()}
 
       <p className="add-category">+ Add Category</p>
     </div>
