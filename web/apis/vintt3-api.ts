@@ -12,3 +12,19 @@ export async function getWatchStatus():Promise<CurrentWatch|null>
 
     return gotWatch;
 }
+
+/** send request to change category */
+export function changeWatchCategory(category:string):void
+{
+    const body:SetCategoryReq={
+        category
+    };
+
+    fetch("/set-category",{
+        method:"POST",
+        body:JSON.stringify(body),
+        headers:{
+            "Content-type":"application/json"
+        }
+    });
+}

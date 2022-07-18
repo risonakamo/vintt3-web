@@ -1,6 +1,8 @@
 import React from "react";
 import _ from "lodash";
 
+import {changeWatchCategory} from "apis/vintt3-api";
+
 import {toFormattedTime} from "lib/timeformat";
 
 import CategoryStatus from "components/category-status/category-status";
@@ -14,10 +16,19 @@ interface WatchStatusProps
 
 export default function WatchStatus(props:WatchStatusProps):JSX.Element
 {
+  // --- HANDLERS ---
+  function h_categoryClick(category:string):void
+  {
+    console.log("changing category:",category);
+    changeWatchCategory(category);
+  }
+
+  // --- RENDER ---
   function renderCategories():JSX.Element[]
   {
     return _.map(props.watchStatus.categoryTime,(time:number,category:string):JSX.Element=>{
-      return <CategoryStatus category={category} time={time}/>;
+      return <CategoryStatus category={category} time={time} key={category}
+        selected={category==props.watchStatus.currentCategory} onClick={h_categoryClick}/>;
     });
   }
 

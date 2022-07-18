@@ -12,3 +12,8 @@ interface CurrentWatch
 
     categoryTime: CategoriesTimes
 }
+
+interface SetCategoryReq
+{
+    category:string
+}
