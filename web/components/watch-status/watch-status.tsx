@@ -18,9 +18,15 @@ export default function WatchStatus(props:WatchStatusProps):JSX.Element
 {
   const [currentCategory,setCurrentCategory]=useState<string>("");
 
+  // sync current category state from props
   useEffect(()=>{
     setCurrentCategory(props.watchStatus.currentCategory);
   },[props.watchStatus.currentCategory]);
+
+  // change document title on name change
+  useEffect(()=>{
+    document.title=`Vintt 4 - ${props.watchStatus.name}`;
+  },[props.watchStatus.name]);
 
 
   // --- HANDLERS ---
