@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState,useEffect} from "react";
 import _ from "lodash";
 
 import {changeWatchCategory} from "apis/vintt3-api";
@@ -16,19 +16,28 @@ interface WatchStatusProps
 
 export default function WatchStatus(props:WatchStatusProps):JSX.Element
 {
+  const [currentCategory,setCurrentCategory]=useState<string>("");
+
+  useEffect(()=>{
+    setCurrentCategory(props.watchStatus.currentCategory);
+  },[props.watchStatus.currentCategory]);
+
+
   // --- HANDLERS ---
   function h_categoryClick(category:string):void
   {
     console.log("changing category:",category);
     changeWatchCategory(category);
+    setCurrentCategory(category);
   }
+
 
   // --- RENDER ---
   function renderCategories():JSX.Element[]
   {
     return _.map(props.watchStatus.categoryTime,(time:number,category:string):JSX.Element=>{
       return <CategoryStatus category={category} time={time} key={category}
-        selected={category==props.watchStatus.currentCategory} onClick={h_categoryClick}/>;
+        selected={category==currentCategory} onClick={h_categoryClick}/>;
     });
   }
 
