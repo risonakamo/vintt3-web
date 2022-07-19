@@ -28,3 +28,19 @@ export function changeWatchCategory(category:string):void
         }
     });
 }
+
+/** request to open config */
+export function openConfig():void
+{
+    fetch("/open-config",{
+        method:"GET"
+    });
+}
+
+/** request to open timefile */
+export function openTimefile():void
+{
+    fetch("/open-timefile",{
+        method:"GET"
+    });
+}
