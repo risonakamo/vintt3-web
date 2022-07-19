@@ -47,8 +47,8 @@ function IndexMain():JSX.Element
       {renderWatchStatus()}
     </div>
     <footer>
-      <a href="" onClick={h_openConfigFile}>open config file</a>
-      <a href="" onClick={h_openTimefile}>open timefile</a>
+      <p className="link-text" onClick={h_openConfigFile}>open config file</p>
+      <p className="link-text" onClick={h_openTimefile}>open timefile</p>
     </footer>
   </>;
 }

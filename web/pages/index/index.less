@@ -21,6 +21,14 @@ p
 {
     margin: 0;
     font-size: @main-text-size;
+
+    &.link-text
+    {
+        display: inline;
+        text-decoration: underline;
+        color: @text-highlight;
+        cursor: pointer;
+    }
 }
 
 a
@@ -54,5 +62,10 @@ a
     {
         height: 20px;
         padding: 3px;
+
+        .link-text
+        {
+            padding: 0 5px;
+        }
     }
 }
