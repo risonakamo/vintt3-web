@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import humanizeDuration from "humanize-duration";
+import cx,{Mapping} from "classnames";
 
 import {openConfig,openTimefile} from "apis/vintt3-api";
 
@@ -42,7 +42,14 @@ function IndexMain():JSX.Element
     return <p className="watching">watching...</p>;
   }
 
+  const headerCx:Mapping={
+    hide:!!currentWatch
+  };
+
   return <>
+    <header className={cx(headerCx)}>
+      NO CONNECTION
+    </header>
     <div className="watch-zone">
       {renderWatchStatus()}
     </div>
