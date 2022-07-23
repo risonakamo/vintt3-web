@@ -13,6 +13,8 @@ export default function useCurrentWatch()
 {
     // the most up to date watch information state
     const [currentWatch,setCurrentWatch]=useState<CurrentWatch|null>(null);
+    // if failed to get a watch
+    const [noConnection,setNoConnection]=useState<boolean>(false);
 
     // timer function triggering getting watch updates
     const watchInterval=useRef<number|null>(null);
@@ -58,9 +60,29 @@ export default function useCurrentWatch()
         }
 
         watchInterval.current=window.setInterval(async ()=>{
-            setCurrentWatch(await getWatchStatus());
+            const gotwatch:CurrentWatchResult=await getWatchStatus();
+
+            if (gotwatch.status=="success" && gotwatch.watch)
+            {
+                setCurrentWatch(gotwatch.watch);
+                setNoConnection(false);
+            }
+
+            else if (gotwatch.status=="nowatch")
+            {
+                setCurrentWatch(null);
+                setNoConnection(false);
+            }
+
+            else
+            {
+                setNoConnection(true);
+            }
         },refresh);
     }
 
-    return currentWatch;
+    return {
+        currentWatch,
+        noConnection
+    } as const;
 }

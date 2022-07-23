@@ -12,7 +12,7 @@ import "./index.less";
 
 function IndexMain():JSX.Element
 {
-  const currentWatch:CurrentWatch|null=useCurrentWatch();
+  const currentWatch=useCurrentWatch();
 
   // --- handlers ---
   /** handle pressed open config file link. request to open config file */
@@ -34,16 +34,16 @@ function IndexMain():JSX.Element
   /** possibly render watch status if it is available */
   function renderWatchStatus()
   {
-    if (currentWatch)
+    if (currentWatch.currentWatch)
     {
-      return <WatchStatus watchStatus={currentWatch}/>;
+      return <WatchStatus watchStatus={currentWatch.currentWatch}/>;
     }
 
     return <p className="watching">watching...</p>;
   }
 
   const headerCx:Mapping={
-    hide:!!currentWatch
+    hide:!currentWatch.noConnection
   };
 
   return <>

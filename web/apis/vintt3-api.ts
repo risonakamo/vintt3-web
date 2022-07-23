@@ -1,16 +1,31 @@
 /** get current watch information. null if there is no current watch */
-export async function getWatchStatus():Promise<CurrentWatch|null>
+export async function getWatchStatus():Promise<CurrentWatchResult>
 {
-    const gotWatch:CurrentWatch=await (await fetch("/get-watch",{
-        method:"GET"
-    })).json();
-
-    if (!gotWatch.name)
+    try
     {
-        return null;
+        const gotWatch:CurrentWatch=await (await fetch("/get-watch",{
+            method:"GET"
+        })).json();
+
+        if (!gotWatch.name)
+        {
+            return {
+                status:"nowatch"
+            };
+        }
+
+        return {
+            status:"success",
+            watch:gotWatch
+        };
     }
 
-    return gotWatch;
+    catch
+    {
+        return {
+            status:"fail"
+        };
+    }
 }
 
 /** send request to change category */
