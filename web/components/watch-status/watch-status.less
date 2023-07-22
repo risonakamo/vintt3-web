@@ -27,10 +27,37 @@
             color: @text-fade-highlight;
             opacity: @highlight-fade;
             cursor: pointer;
+            user-select: none;
 
             &:hover
             {
                 opacity: @active-highlight-fade;
+            }
+
+            &.hidden
+            {
+                display: none;
+            }
+        }
+
+        .new-cat-container
+        {
+            margin-bottom: 6px;
+            color: @text-fade-highlight;
+
+            input.add-cat-input
+            {
+                background: transparent;
+                outline: 0;
+                border: 0;
+                color: @text-fade-highlight;
+                font-family: consolas;
+                font-size: 14px;
+            }
+
+            &.hidden
+            {
+                display: none;
             }
         }
     }

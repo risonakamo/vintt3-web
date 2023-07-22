@@ -1,5 +1,6 @@
-import React,{useState,useEffect} from "react";
+import React,{useState,useEffect,useRef} from "react";
 import _ from "lodash";
+import cx,{Mapping} from "classnames";
 
 import {changeWatchCategory} from "apis/vintt3-api";
 
@@ -17,7 +18,15 @@ interface WatchStatusProps
 export default function WatchStatus(props:WatchStatusProps):JSX.Element
 {
   const [currentCategory,setCurrentCategory]=useState<string>("");
+  const [newCategoryInputShowing,setNewCategoryInputShowing]=useState<boolean>(false);
 
+  // ref to new cat input text box
+  const newCatInputEl=useRef<HTMLInputElement>(null);
+  // saving prev state for effect
+  const prevCatInputShowing=useRef<boolean>(newCategoryInputShowing);
+
+
+  // --- effect ---
   // sync current category state from props
   useEffect(()=>{
     setCurrentCategory(props.watchStatus.currentCategory);
@@ -28,6 +37,20 @@ export default function WatchStatus(props:WatchStatusProps):JSX.Element
     document.title=`Vintt 4 - ${props.watchStatus.name}`;
   },[props.watchStatus.name]);
 
+  // when the new cat input showing state changes, if it is now true, but it was previously
+  // false (so not when it changes to false, or changes from true to true (which shouldnt happen)),
+  // trigger focus on the cat input element
+  useEffect(()=>{
+    if (newCategoryInputShowing && !prevCatInputShowing.current)
+    {
+      newCatInputEl.current?.focus();
+    }
+
+    prevCatInputShowing.current=newCategoryInputShowing;
+  },[newCategoryInputShowing]);
+
+
+
 
   // --- HANDLERS ---
   function h_categoryClick(category:string):void
@@ -37,8 +60,26 @@ export default function WatchStatus(props:WatchStatusProps):JSX.Element
     setCurrentCategory(category);
   }
 
+  /** clicked on add new category button. change state so the new category input field
+   *  is showing */
+  function h_addNewCatClick():void
+  {
+    setNewCategoryInputShowing(true);
+  }
+
+  /** new category input box key event. on enter, perform submit actions */
+  function h_newCatInputKey(e:React.KeyboardEvent):void
+  {
+    if (e.key=="Enter")
+    {
+      console.log("submitting");
+    }
+  }
+
+
 
   // --- RENDER ---
+  /** render the category list objects */
   function renderCategories():JSX.Element[]
   {
     return _.map(props.watchStatus.categoryTime,(time:number,category:string):JSX.Element=>{
@@ -47,8 +88,18 @@ export default function WatchStatus(props:WatchStatusProps):JSX.Element
     });
   }
 
+  // format time
   const currentTime:FormattedTime=toFormattedTime(props.watchStatus.currentTime);
   const totalTime:FormattedTime=toFormattedTime(props.watchStatus.totalTime);
+
+  // classes
+  const addCatButtonCx:Mapping={
+    hidden:newCategoryInputShowing
+  };
+
+  const newCatInputCx:Mapping={
+    hidden:!newCategoryInputShowing
+  };
 
   return <div className="watch-status">
     <p className="title">{props.watchStatus.name}</p>
@@ -59,7 +110,13 @@ export default function WatchStatus(props:WatchStatusProps):JSX.Element
     <div className="categories">
       {renderCategories()}
 
-      <p className="add-category">+ Add Category</p>
+      <div className={cx("new-cat-container",newCatInputCx)}>
+        <span>+</span>&nbsp;
+        <input type="text" className="add-cat-input" placeholder="new category..."
+          ref={newCatInputEl} onKeyDown={h_newCatInputKey}/>
+      </div>
+
+      <p className={cx("add-category",addCatButtonCx)} onClick={h_addNewCatClick}>+ Add Category</p>
     </div>
   </div>;
 }
