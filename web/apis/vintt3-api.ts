@@ -61,7 +61,7 @@ export function openTimefile():void
 }
 
 /** request to create new category. returns success text, or throws error text */
-export async function newCategory(name:string):Promise<string>
+export async function newCategory(name:string):Promise<void>
 {
     const body:NewCategoryReq={
         categoryName:name
@@ -79,6 +79,4 @@ export async function newCategory(name:string):Promise<string>
     {
         throw await result.text();
     }
-
-    return await result.text();
 }

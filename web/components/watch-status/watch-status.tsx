@@ -14,6 +14,9 @@ import "./watch-status.less";
 interface WatchStatusProps
 {
   watchStatus:CurrentWatch
+
+  // triggered when new category request sucessful
+  onGotNewCategory():void
 }
 
 export default function WatchStatus(props:WatchStatusProps):JSX.Element
@@ -56,16 +59,16 @@ export default function WatchStatus(props:WatchStatusProps):JSX.Element
   const newCategoryQuery=useMutation({
     retry:3,
 
-    async mutationFn(name:string):Promise<string>
+    async mutationFn(name:string):Promise<void>
     {
-      return newCategory(name);
+      newCategory(name);
     },
 
     // on success, clear the new cat mode
-    onSuccess(result:string):void
+    onSuccess():void
     {
-      console.log("success msg:",result);
       clearNewCatMode();
+      props.onGotNewCategory();
     },
 
     onError(err:string):void

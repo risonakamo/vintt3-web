@@ -60,29 +60,36 @@ export default function useCurrentWatch()
         }
 
         watchInterval.current=window.setInterval(async ()=>{
-            const gotwatch:CurrentWatchResult=await getWatchStatus();
-
-            if (gotwatch.status=="success" && gotwatch.watch)
-            {
-                setCurrentWatch(gotwatch.watch);
-                setNoConnection(false);
-            }
-
-            else if (gotwatch.status=="nowatch")
-            {
-                setCurrentWatch(null);
-                setNoConnection(false);
-            }
-
-            else
-            {
-                setNoConnection(true);
-            }
+            refreshWatch();
         },refresh);
+    }
+
+    /** get watch status and update states */
+    async function refreshWatch():Promise<void>
+    {
+        const gotwatch:CurrentWatchResult=await getWatchStatus();
+
+        if (gotwatch.status=="success" && gotwatch.watch)
+        {
+            setCurrentWatch(gotwatch.watch);
+            setNoConnection(false);
+        }
+
+        else if (gotwatch.status=="nowatch")
+        {
+            setCurrentWatch(null);
+            setNoConnection(false);
+        }
+
+        else
+        {
+            setNoConnection(true);
+        }
     }
 
     return {
         currentWatch,
-        noConnection
+        noConnection,
+        refreshWatch
     } as const;
 }

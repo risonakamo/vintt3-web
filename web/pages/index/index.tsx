@@ -30,6 +30,12 @@ function IndexMain():JSX.Element
     openTimefile();
   }
 
+  /** on new category complete, force refresh the watch */
+  function h_gotNewCategory():void
+  {
+    currentWatch.refreshWatch();
+  }
+
 
   // --- render ---
   /** possibly render watch status if it is available */
@@ -37,7 +43,7 @@ function IndexMain():JSX.Element
   {
     if (currentWatch.currentWatch)
     {
-      return <WatchStatus watchStatus={currentWatch.currentWatch}/>;
+      return <WatchStatus watchStatus={currentWatch.currentWatch} onGotNewCategory={h_gotNewCategory}/>;
     }
 
     return <p className="watching">watching...</p>;
