@@ -59,3 +59,26 @@ export function openTimefile():void
         method:"GET"
     });
 }
+
+/** request to create new category. returns success text, or throws error text */
+export async function newCategory(name:string):Promise<string>
+{
+    const body:NewCategoryReq={
+        categoryName:name
+    };
+
+    const result:Response=await fetch("/new-category",{
+        method:"POST",
+        body:JSON.stringify(body),
+        headers:{
+            "Content-Type":"application/json"
+        }
+    });
+
+    if (result.status!=200)
+    {
+        throw await result.text();
+    }
+
+    return await result.text();
+}

@@ -1,8 +1,9 @@
 import React,{useState,useEffect,useRef} from "react";
 import _ from "lodash";
 import cx,{Mapping} from "classnames";
+import {useMutation} from "@tanstack/react-query";
 
-import {changeWatchCategory} from "apis/vintt3-api";
+import {changeWatchCategory,newCategory} from "apis/vintt3-api";
 
 import {toFormattedTime} from "lib/timeformat";
 
@@ -48,6 +49,30 @@ export default function WatchStatus(props:WatchStatusProps):JSX.Element
 
     prevCatInputShowing.current=newCategoryInputShowing;
   },[newCategoryInputShowing]);
+
+
+
+  // --- query ---
+  const newCategoryQuery=useMutation({
+    retry:3,
+
+    async mutationFn(name:string):Promise<string>
+    {
+      return newCategory(name);
+    },
+
+    // on success, clear the new cat mode
+    onSuccess(result:string):void
+    {
+      console.log("success msg:",result);
+      clearNewCatMode();
+    },
+
+    onError(err:string):void
+    {
+      console.error("failed to make new category:",err);
+    }
+  });
 
 
 
@@ -106,10 +131,7 @@ export default function WatchStatus(props:WatchStatusProps):JSX.Element
         return;
       }
 
-      console.log("submitting");
-
-      console.log("if submit was successful");
-      clearNewCatMode();
+      newCategoryQuery.mutateAsync(newCatText);
     }
   }
 

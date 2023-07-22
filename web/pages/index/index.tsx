@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import cx,{Mapping} from "classnames";
+import {QueryClientProvider,QueryClient} from "@tanstack/react-query";
 
 import {openConfig,openTimefile} from "apis/vintt3-api";
 
@@ -62,7 +63,12 @@ function IndexMain():JSX.Element
 
 function main()
 {
-  ReactDOM.render(<IndexMain/>,document.querySelector(".main"));
+  ReactDOM.render(
+    <QueryClientProvider client={new QueryClient()}>
+      <IndexMain/>
+    </QueryClientProvider>,
+    document.querySelector(".main")
+  );
 }
 
 window.onload=main;

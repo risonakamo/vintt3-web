@@ -29,3 +29,8 @@ interface SetCategoryReq
 {
     category:string
 }
+
+interface NewCategoryReq
+{
+    categoryName:string
+}
