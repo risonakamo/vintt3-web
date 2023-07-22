@@ -51,6 +51,24 @@ export default function WatchStatus(props:WatchStatusProps):JSX.Element
 
 
 
+  // --- functions ---
+  /** exit new category input mode, clearing the input and resetting the state */
+  function clearNewCatMode():void
+  {
+    if (!newCatInputEl.current)
+    {
+      console.error("missing new cat input text box");
+    }
+
+    else
+    {
+      newCatInputEl.current.value="";
+    }
+
+    setNewCategoryInputShowing(false);
+  }
+
+
 
   // --- HANDLERS ---
   function h_categoryClick(category:string):void
@@ -72,9 +90,29 @@ export default function WatchStatus(props:WatchStatusProps):JSX.Element
   {
     if (e.key=="Enter")
     {
+      if (!newCatInputEl.current)
+      {
+        console.error("new cat input box is missing");
+        return;
+      }
+
+      var newCatText:string|undefined=newCatInputEl.current.value.trim();
+
+      // if user entered nothing, cancel add new category mode
+      if (!newCatText)
+      {
+        console.warn("new cat text was empty, cancelling");
+        clearNewCatMode();
+        return;
+      }
+
       console.log("submitting");
+
+      console.log("if submit was successful");
+      clearNewCatMode();
     }
   }
+
 
 
 
